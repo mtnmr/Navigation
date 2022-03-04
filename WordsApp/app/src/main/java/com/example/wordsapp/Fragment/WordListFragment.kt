@@ -24,6 +24,18 @@ class WordListFragment : Fragment() {
     private var _binding:FragmentWordListBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var letterId:String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        arguments?.let{
+            letterId = it.getString(LETTER).toString()
+            //nav_graphにletterという名前で受け取る変数を定義している
+            //LetterAdapterのonClickListenerで値渡している
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,7 +49,7 @@ class WordListFragment : Fragment() {
 
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = WordAdapter(activity?.intent?.extras?.getString(LETTER).toString(), requireContext())
+        recyclerView.adapter = WordAdapter(letterId, requireContext())
 
         // Adds a [DividerItemDecoration] between items
         recyclerView.addItemDecoration(
